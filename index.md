@@ -53,7 +53,9 @@ Os dados utilizados neste tutoria são de **uma amostra de *Saccharomyces cerevi
 Os dados estão disponíveis no ENA e no SRA. Mostramos duas opções: via **SRA Toolkit** (controlado e robusto) e via **wget** direto do ENA (mais simples).
 
 === "Obtendo dados"
-    ```bash
+
+```bash
+    
     mkdir 0.DadosBrutos
     ln -s /media/lgbio-nas1/lcorvalan/Hic_cafe/0.DadosBrutos/SRR23913693_1.fastq 0.DadosBrutos
     ln -s /media/lgbio-nas1/lcorvalan/Hic_cafe/0.DadosBrutos/SRR23913693_2.fastq 0.DadosBrutos
@@ -61,7 +63,7 @@ Os dados estão disponíveis no ENA e no SRA. Mostramos duas opções: via **SRA
     cp /media/lgbio-nas1/lcorvalan/Hic_cafe/sacCer3_draft.fasta 0.DadosBrutos
     cp /media/lgbio-nas1/lcorvalan/Hic_cafe/sacCer3_ref.fasta 0.DadosBrutos
 
-    ```
+```
 
 
 ## :material-numeric-2-circle: Etapa 2 — Alinhamento 
@@ -88,7 +90,7 @@ mv sacCer3_draft_alin* 1.Alinhamento/
 
 ```bash
 
-samtools faidx 0.DadosBrutos/sacCer3_draft.fasta
+    samtools faidx 0.DadosBrutos/sacCer3_draft.fasta
 
 ```
 
