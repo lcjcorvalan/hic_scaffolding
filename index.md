@@ -57,11 +57,11 @@ Os dados estão disponíveis no ENA e no SRA. Mostramos duas opções: via **SRA
 ```bash
     
     mkdir 0.DadosBrutos
-    ln -s /media/lgbio-nas1/lcorvalan/Hic_cafe/0.DadosBrutos/SRR23913693_1.fastq 0.DadosBrutos
-    ln -s /media/lgbio-nas1/lcorvalan/Hic_cafe/0.DadosBrutos/SRR23913693_2.fastq 0.DadosBrutos
+    ln -s /media/lgbio-nas1/lcorvalan/Hic_cafe/hic_scaffolding/0.DadosBrutos/sacCer3_hic20_1.fastq 0.DadosBrutos
+    ln -s /media/lgbio-nas1/lcorvalan/Hic_cafe/hic_scaffolding/0.DadosBrutos/sacCer3_hic20_2.fastq 0.DadosBrutos
 
-    cp /media/lgbio-nas1/lcorvalan/Hic_cafe/sacCer3_draft.fasta 0.DadosBrutos
-    cp /media/lgbio-nas1/lcorvalan/Hic_cafe/sacCer3_ref.fasta 0.DadosBrutos
+    cp /media/lgbio-nas1/lcorvalan/Hic_cafe/hic_scaffolding/sacCer3_draft.fasta 0.DadosBrutos
+    cp /media/lgbio-nas1/lcorvalan/Hic_cafe/hic_scaffolding/sacCer3_ref.fasta 0.DadosBrutos
 
 ```
 
@@ -110,8 +110,6 @@ Os dados estão disponíveis no ENA e no SRA. Mostramos duas opções: via **SRA
     --telo-motif TGGG \
     -e GATC \
     -o 2.Scaffolding/sacCer3_draft_alin.Hic.yahs.out
-
-    mv sacCer3_draft_alin.Hic.yahs.out* 2.Scaffolding
 
 ```
 
@@ -232,6 +230,20 @@ Transfira o arquivo do .assembly para o servidor
 ```
 
 ??? note "O arquivo final foi gerado 2.Scaffolding/sacCer3_draf.JB.out.FINAL.fa"
+
+## :material-numeric-9-circle: Etapa 9 — Qualidade final
+
+```bash
+    mkdir 3.Qualidade/
+
+    quast.py -r 0.DadosBrutos/sacCer3_ref.fasta \
+      0.DadosBrutos/sacCer3_draft.fasta \
+      2.Scaffolding/sacCer3_draft_alin.Hic.yahs.out_scaffolds_final.fa \
+      2.Scaffolding/sacCer3_draf.JB.out.FINAL.fa \
+      -o 3.Qualidade/quast -t 24 \
+      --labels "sacCer3_draft,sacCer3_yahs,sacCer3_JB"
+  
+```
 
 #### Parbens vc finalizou esta etapa!
 que a força estja com voce!
