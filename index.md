@@ -4,8 +4,11 @@
     Tutorial prático de scaffolding de genomas a partir de dados de Hi-C. Nele você verá o pipeline completo: alinhamento, scaffolding, construção do mapa de contato, edição do mapa, exportação e avaliação.
 
 **Autor:** Dr. Leonardo C. J. Corvalan
+
 **Instituição:** Laboratório de Genética & Biodiversidade (LGBio), ICB/UFG
+
 **Contato:** [lcjocorvalan@gmail.com](mailto:lcjocorvalan@gmail.com)
+
 **Última atualização:** novembro de 2026
 
 ---
@@ -40,7 +43,7 @@ Ao final deste curso, você será capaz de:
 | --- | --- |
 | Curso anterior | [Bash / Linux para bioinformática](../bash/index.md) |
 | Biologia molecular | Conceitos de sequenciamento, genoma, contig e scaffold |
-| Softwares | SRA Toolkit, bwa-mem2, samtools, PicardCommandLine, QUAST, YaHS, juicer_tools, Juicebox |
+| Softwares | SRA Toolkit, bwa-mem2, samtools, PicardCommandLine, QUAST, YaHS, Pretext |
 | Recursos | Servidor Linux com ≥ 32 GB de RAM, ≥ 16 threads e ≥ 50 GB de armazenamento |
 
 !!! warning "Programas no computador pessoal"
@@ -54,10 +57,10 @@ Ao final deste curso, você será capaz de:
 
 ## :material-database: Dados do exercício
 
-Os dados deste tutorial vêm de uma amostra sequenciada com a enzima de restrição DpnII pelo protocolo Hi-C. Projeto de origem: [GSE227687](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE227687).
+Os dados utilizados nesse tutorial foram obtidos do genomas *Athalia rosae* (Turnip Sawfly; Arhropoda; Insecta; Hymenoptera; Athaliidae), no qual os dados HiC foram produzido utilizado o kit Dovetail Hi-C kit (enzimas de restrição ^GATC,G^ANTC,C^TNAG,T^TAA)  . Projeto de origem: [PRJEB45200](https://www.ncbi.nlm.nih.gov/bioproject/731793).
 
 !!! quote "Referência"
-    Fouziya S, Krietenstein N, Mir US, Mieczkowski J, Khan MA, Baba A, Dar MA, Altaf M, Wani AH. Genome wide nucleosome landscape shapes 3D chromatin organization. *Sci Adv.* 2024 Jun 7;10(23):eadn2955. doi: 10.1126/sciadv.adn2955
+    Liam M. Crowley & Gavin R. Broad.The genome sequence of the Turnip Sawfly, Athalia rosae(Linnaeus, 1758). *Wellcome Open Research* 2023 Feb 7; 8:87 . doi: 10.12688/wellcomeopenres.18993.1
 
 ---
 
@@ -182,7 +185,7 @@ fastp \
 - [ ] Tenho `1.Dadosfiltrados/Athrosa_draft.fastp.html`
 
 !!! tip "Resultados pré-computados"
-    [:material-file-document: Relatório fastp](precompt/Athrosa_draft.fastp.html)
+    [:material-file-document: Relatório fastp](Precompt/Athrosa_draft.fastp.html)
 
 !!! note "Alternativas"
     Outros programas, como FastQC e Trimmomatic, também podem ser usados para filtrar as reads.
@@ -412,7 +415,7 @@ rm -rf temp/
 - [ ] Examinei `2.Alinhamento/Athrosa_draft.hic.bam.stats`
 
 !!! tip "Resultados pré-computados"
-    [:material-file-document: Athrosa_draft.hic.bam.stats](precompt/Athrosa_draft.hic.bam.stats)
+    [:material-file-document: Athrosa_draft.hic.bam.stats](Precompt/Athrosa_draft.hic.bam.stats)
 
 ---
 
@@ -573,7 +576,7 @@ quast.py -r "$REFERENCE" \
 - [ ] Comparei as estatísticas geradas pelo QUAST
 
 !!! tip "Resultados pré-computados"
-    [:material-file-document: Relatório QUAST](precompt/report1.html)
+    [:material-file-document: Relatório QUAST](Precompt/report1.html)
 
 ---
 
@@ -609,6 +612,7 @@ conda activate pretext
 (awk 'BEGIN{print "## pairs format v1.0"} {print "#chromsize:\t"$1"\t"$2} END {print "#columns:\treadID\tchr1\tpos1\tchr2\tpos2\tstrand1\tstrand2"}' "$GENOME_SCF".chrom.sizes; \
  awk '{print ".\t"$2"\t"$3"\t"$6"\t"$7"\t.\t."}' "$GENOME_SCF".alignments_sorted.txt) \
  | PretextMap -o "$GENOME_SCF".pretext
+
 ```
 
 ### 5.3 Gerando a imagem do mapa atual
@@ -673,7 +677,10 @@ PretextSnapshot -m "$GENOME_SCF".pretext --sequences "=full" -o "$GENOME_SCF".pr
 ![Mapa de contato original](figuras/sacCer3_draft_scaffolds_final.fa_FullMap.png)
 
 !!! tip "Resultados pré-computados"
-    [:material-file-chart: Mapa PretextMap (.pretext)](precompt/sacCer3_draft_scaffolds_final.fa.telomeres.pretext)
+    O PretextView roda no seu computador. Baixe o arquivo `.pretext` para a sua máquina antes de começar:
+
+    [:material-download: Baixar o arquivo .pretext](https://drive.google.com/file/d/1jEdXSN1lhQzajWB-UUX97MIOxWOK6-bJ/view?usp=sharing)
+
 
 ### Checklist da Etapa 5
 
@@ -753,7 +760,7 @@ PretextSnapshot -m "$GENOME_SCF".pretext --sequences "=full" -o "$GENOME_SCF".pr
 3. Salve o arquivo.
 
 !!! tip "Resultados pré-computados"
-    [:material-file-document: Arquivo AGP editado](precompt/Athrosa_draft_scaffolds_final.fa.pretext.agp_1)
+    [:material-file-document: Arquivo AGP editado](Precompt/Athrosa_draft_scaffolds_final.fa.pretext.agp_1)
 
 ---
 
